@@ -30,6 +30,25 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
       PhotonNetwork.NickName = nickname;
   }
 
+  public string ObterListaDeJogadores(){
+      var lista = "";
+      foreach(var player in PhotonNetwork.PlayerList){
+          lista += player.NickName + "\n";
+      }
+      return lista;
+  }
+  public bool IsOner(){
+      return PhotonNetwork.IsMasterClient;
+  }
+  public void SairDoLobby(){
+      PhotonNetwork.LeaveRoom();
+  }
+  [PunRPC]
+  public void ComecaJogo(string nomeCena){
+      PhotonNetwork.LoadLevel(nomeCena);
+
+  }
+
   private void Start(){
         PhotonNetwork.ConnectUsingSettings();
     }
